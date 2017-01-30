@@ -1,0 +1,30 @@
+{
+  "name": "gordon-config",
+  "version": "0.0.1",
+  "description": "Utitility to configure gordon settings",
+  "keywords": [
+    "gordon",
+    "aws",
+    "lambda",
+    "configuration"
+  ],
+  "main": "./lib/gordonconfig.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:geronimo-iia/gordon-config.js.git"
+  },
+  "author": "Jérôme Guibert<jguibert@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "argparse": "^1.0.9",
+    "aws-sdk": "^2.6.6",
+    "yamljs": "^0.2.8"
+  },
+  "engines": {
+    "node": ">=4.3"
+  },
+  "bin": {
+    "gordon-config": "./bin/gordon-config"
+  }
+}

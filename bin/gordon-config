@@ -1,0 +1,83 @@
+#!/usr/bin/env node
+const ArgumentParser = require('argparse').ArgumentParser;
+const cli = new ArgumentParser({
+    prog:           'gordon-config',
+    version:        require('../package.json').version,
+    description: 'Gordon configuration utility.',
+    addHelp:  true
+});
+
+cli.addArgument(
+    ['-s', '--stack-name'],
+    {
+        action: 'store',
+        type:   'string',
+        help:   'Cloudformation stack name.',
+    }
+);
+
+cli.addArgument(
+    ['-n', '--name'],
+    {
+        action: 'store',
+        type:   'string',
+        help:   'Stage name.',
+    }
+);
+
+cli.addArgument(['output'], {
+    help:   'Directory where to write output.'
+});
+
+cli.addArgument(
+    ['-p', '--profile'],
+    {
+        action: 'store',
+        type:   'string',
+        required: false,
+        help:   'Optional AWS profile name.',
+    }
+);
+
+cli.addArgument(
+    ['-r', '--region'],
+    {
+        action: 'store',
+        type:   'string',
+        required: false,
+        help:   'Optional AWS region name.',
+    }
+);
+
+
+cli.addArgument(
+    ['-t', '--template'],
+    {
+        action: 'store',
+        type:   'string',
+        required: false,
+        help:   'Optional settings template file.',
+    }
+);
+
+try {
+    const options = cli.parseArgs();
+    const GordonConfig = require('../lib/gordonconfig');
+
+    const builder = new GordonConfig(options.region, options.profile);
+    if (options.template) {
+      builder.addSettingTemplate(options.template);
+    }
+    console.dir(options);
+    return builder.build(options.stack_name)
+      .then(function () {
+          return builder.write(options.name, options.output);
+      })
+      .catch (function (e) {
+          process.stderr.write((e.message ? e.message : e)+"\n");
+          process.exit(-1);
+      });
+  } catch (e) {
+    process.stderr.write((e.message ? e.message : e)+"\n");
+    process.exit(-1);
+  }
