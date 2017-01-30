@@ -30,7 +30,7 @@ We start by using:
 Run tool
 
 ```
-node ./node_module/bin/gordon-config 'mystack' 'dev' '.'
+node ./node_module/bin/gordon-config -s mystack -name 'dev' .
 ```
 
 Main process is:
@@ -49,6 +49,37 @@ After this process you can using gordon as usual:
 gordon build
 gordon apply -s {{stage}}
 ```
+
+## Command line
+
+For help
+```
+gordon-config -h
+
+usage: gordon-config [-h] [-v] [-s STACK_NAME] [-n NAME] [-p PROFILE]
+                     [-r REGION] [-t TEMPLATE]
+                     output
+
+Gordon configuration utility.
+
+Positional arguments:
+  output                Directory where to write output.
+
+Optional arguments:
+  -h, --help            Show this help message and exit.
+  -v, --version         Show program's version number and exit.
+  -s STACK_NAME, --stack-name STACK_NAME
+                        Cloudformation stack name.
+  -n NAME, --name NAME  Stage name.
+  -p PROFILE, --profile PROFILE
+                        Optional AWS profile name.
+  -r REGION, --region REGION
+                        Optional AWS region name.
+  -t TEMPLATE, --template TEMPLATE
+                        Optional settings template file.
+```
+
+
 
 ## Customize parameters
 
