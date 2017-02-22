@@ -15,42 +15,8 @@ We started to wrote using nodejs for quickly obtain a prototype. We have in mind
 - rewrite with python very soon.
 - share this work to gordon project
 
-# Usage
 
-
-## Simple case: Add cloudformation stack as parameters
-
-We start by using:
- - a "settings.yml" as template,
- - a cloud formation stack name
- - an output target directory
- - a stage name
- - optional AWS configuration parameter (region, or named profile ). Use standard AWS environment variable to configure AWS access.
-
-Run tool
-
-```
-node ./node_module/bin/gordon-config -s mystack -name 'dev' .
-```
-
-Main process is:
-- describe cloud formation stack
-- Transform all output parameters as parameters for gordon
-- write stage yaml parameters file
-- write settings yaml file
-
-
- After running, the tools write:
- - ./settings.yml
- - ./parameters/{{stage}}.tml
-
-After this process you can using gordon as usual:
-```
-gordon build
-gordon apply -s {{stage}}
-```
-
-## Command line
+# Command line tool
 
 For help
 ```
@@ -81,24 +47,71 @@ Optional arguments:
 
 
 
-## Customize parameters
+# Main Usage: Add cloudformation stack output as parameters
 
-Use it to put:
+We start by using:
+ - a "settings.yml" as template,
+ - a cloud formation stack name
+ - an output target directory
+ - a stage name
+ - optional AWS configuration parameter (region, or named profile ). Use standard AWS environment variable to configure AWS access.
+
+
+First, install gordon-config:
+
+```
+npm install gordon-config
+```
+
+Run tool
+
+```
+node ./node_module/bin/gordon-config -s mystack -name 'dev' .
+```
+
+Main process is:
+- describe cloud formation stack named 'mystack'
+- Transform all output parameters as parameters for gordon
+- write stage yaml parameters file as 'dev'
+- write settings yaml file
+
+
+ After running, the tools write:
+ - ./settings.yml
+ - ./parameters/{{stage}}.yml (in our example: ./parameters/dev.yml )
+
+After this process you can using gordon as usual:
+```
+gordon build
+gordon apply -s {{stage}}
+# in our example: gordon apply -s dev
+```
+
+
+# Customize parameters and settings
+
+
+Customize parameters to put:
 - external parameters which define your stack (customer, stage, ...)
 - build VPC subnet list
 - aggregate another cloud formation stack parameter
 
+Customize settings to put lambda trigger dynamically (based on parameters for example)
 
 
-## Customize settings
-
-Use it to put lambda trigger dynamically (based on parameters for example)
+TODO: add code sample
 
 
+# build, deploy, etc ..
 
-# build, configure, deploy
+```
+npm install
+```
 
-
+TODO:
+- add test
+- publish first version on npm
+- add example
 
 
 # MIT License
