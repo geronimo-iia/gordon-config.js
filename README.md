@@ -2,7 +2,7 @@
 
 Warn: Work in progress
 
-This tools aim to use with [gordon]() which is a excellent lambda deployment tool on AWS platform.
+This tools aim to use with [gordon](https://github.com/jorgebastida/gordon) which is a excellent lambda deployment tool on AWS platform.
 Gordon-config help us to configure gordon settings and parameter by calling other cloud formation stack.
 
 Why this tool:
